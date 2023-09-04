@@ -3,13 +3,23 @@
 .app {
 	font-family: Arial, sans-serif;
 	padding: 24px;
+  
+	/* Media query for screens smaller than 768px (typical mobile devices) */
+	@media (max-width: 768px) {
+	  padding: 16px;
+	}
   }
   
   .container {
 	display: flex;
+	justify-content: space-between;
 	align-items: flex-start;
-	gap: 50px;
-	width: 100%;
+	width: 100%; /* Occupy the full width of the container */
+  
+	/* Media query for screens smaller than 768px (typical mobile devices) */
+	@media (max-width: 768px) {
+	  flex-direction: column; /* Stack components vertically on mobile */
+	}
   }
   
   /* Allocate 30% space for EmployeeList */
@@ -18,10 +28,22 @@
 	padding: 16px;
 	background-color: #f0f0f0;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  
+	/* Media query for screens smaller than 768px (typical mobile devices) */
+	@media (max-width: 768px) {
+	  width: 100%; /* Occupy full width on mobile */
+	  margin-bottom: 16px; /* Add spacing between components */
+	}
   }
   
   /* Allocate 70% space for EmployeeTree */
   .EmployeeTree {
 	width: 70%;
+	/* Additional styles for EmployeeTree can be added here */
+  
+	/* Media query for screens smaller than 768px (typical mobile devices) */
+	@media (max-width: 768px) {
+	  width: 100%; /* Occupy full width on mobile */
+	}
   }
   
