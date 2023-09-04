@@ -1,0 +1,142 @@
+.container {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-wrap: nowrap;
+}
+.org-tree {
+	width: calc(100% - 30%);
+	margin: 10px;
+	overflow-x: scroll;
+}
+body {
+	font-family: sans-serif;
+}
+.employee-list-container {
+	width: 30%;
+	height: 100%;
+}
+.employee-list {
+	height: 100%;
+	padding-inline-start: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.employee-list-item {
+	margin: 8px;
+	box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, 0.2);
+	padding: 6px 12px;
+	display: flex;
+	justify-content: flex-start;
+}
+.search-filter-employee {
+	display: flex;
+	padding: 20px;
+}
+.input-search-btn {
+	position: relative;
+	width: 80%;
+	margin-right: 10px;
+}
+.search-input {
+	width: 100%;
+	height: 35px;
+	outline: none;
+	padding-left: 20px;
+	font: 400 16px sans-serif;
+}
+.search-btn {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	cursor: pointer;
+	background: #11998e;
+	color: #fff;
+	outline: none;
+	border: none;
+	height: 35px;
+}
+.filter-btn {
+	width: 20%;
+	outline: none;
+	height: 35px;
+	font: 400 16px sans-serif;
+}
+.employee-image {
+	height: 50px;
+	width: 50px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+.employee-name {
+	font: 600 20px sans-serif;
+	margin: 0px;
+	margin-top: 15px;
+}
+.employee-designation {
+	margin-top: 5px;
+	font: 400 16px sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+.employee-team {
+	font: 600 13px sans-serif;
+	margin: 5px;
+	width: 150px;
+	text-align: center;
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.team-btn {
+	color: #000;
+	border: none;
+	padding: 5px 10px;
+	margin: 5px;
+	font: 40 15px sans-serif;
+}
+.tree {
+	display: flex;
+}
+.tree li {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.tree li div {
+	width: 100%;
+	display: flex;
+}
+.tree li div li {
+	padding: 20px;
+}
+
+span {
+	display: flex;
+	margin: 5px;
+	padding: 5px 10px;
+	flex-direction: column;
+	box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, 0.2);
+}
+
+ul {
+	padding-inline-start: 0px;
+}
+@media all and (max-width: 1000px) {
+	.container {
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+	.org-tree {
+		width: 100%;
+		margin: 0px;
+	}
+	.employee-list-container {
+		width: 100%;
+		height: 100%;
+	}
+}
