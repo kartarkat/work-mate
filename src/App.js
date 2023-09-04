@@ -1,14 +1,19 @@
-import "./App.css";
+
+import EmployeeList from "./components/EmployeeList/EmployeeList";
 import EmployeeTree from "./components/EmployeeTree/EmployeeTree";
 import { employeeData } from "./constants";
 import { generateEmployeeTree } from "./utils/helpers";
+import styles from "./App.module.scss"; // Import your main SCSS styles
+
 
 export default function App() {
-	console.log('testttt', generateEmployeeTree(employeeData))
 	return (
-			<div className="App">sdv
-			  <h1>Employee Tree</h1>
-			  <EmployeeTree data={generateEmployeeTree(employeeData)} />
-			</div>
+		<div className={styles.app}>
+		<h1>Employee Tree</h1>
+		<div className={styles.container}>
+		  <EmployeeList employeeData={employeeData} />
+		  <EmployeeTree data={generateEmployeeTree(employeeData)} />
+		</div>
+	  </div>
 	);
 }

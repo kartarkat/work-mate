@@ -1,0 +1,27 @@
+/* App.module.scss */
+
+.app {
+	font-family: Arial, sans-serif;
+	padding: 24px;
+  }
+  
+  .container {
+	display: flex;
+	align-items: flex-start;
+	gap: 50px;
+	width: 100%;
+  }
+  
+  /* Allocate 30% space for EmployeeList */
+  .EmployeeList {
+	width: 30%;
+	padding: 16px;
+	background-color: #f0f0f0;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Allocate 70% space for EmployeeTree */
+  .EmployeeTree {
+	width: 70%;
+  }
+  

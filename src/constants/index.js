@@ -48,27 +48,27 @@ export const employeeData = [
       "team": "Sales",
       "manager": 6
     },
-    // {
-    //   "id": 8,
-    //   "name": "Michael Davis",
-    //   "designation": "Account Executive",
-    //   "team": "Sales",
-    //   "manager": 7
-    // },
-    // {
-    //   "id": 9,
-    //   "name": "Sophia Wilson",
-    //   "designation": "HR Manager",
-    //   "team": "HR",
-    //   "manager": 2
-    // },
-    // {
-    //   "id": 10,
-    //   "name": "Oliver Martin",
-    //   "designation": "HR Coordinator",
-    //   "team": "HR",
-    //   "manager": 9
-    // },
+    {
+      "id": 8,
+      "name": "Michael Davis",
+      "designation": "Account Executive",
+      "team": "Sales",
+      "manager": 7
+    },
+    {
+      "id": 9,
+      "name": "Sophia Wilson",
+      "designation": "HR Manager",
+      "team": "HR",
+      "manager": 2
+    },
+    {
+      "id": 10,
+      "name": "Oliver Martin",
+      "designation": "HR Coordinator",
+      "team": "HR",
+      "manager": 9
+    },
     // {
     //   "id": 11,
     //   "name": "Alice Lee",

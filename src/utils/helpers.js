@@ -18,7 +18,6 @@ export const generateEmployeeTree = (data) => {
     }
   });
 
-  console.log('rootEmployees', rootEmployees);
 
   return rootEmployees;
 };

@@ -1,0 +1,58 @@
+/* EmployeeList.module.scss */
+
+.employeeListContainer {
+    width: 30%; /* Allocate 30% of the space for EmployeeList */
+    background-color: #f0f0f0; /* Background color for the list container */
+    padding: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+    display: flex;
+    flex-direction: column;
+    overflow: auto; /* Enable scrolling if content exceeds container */
+  }
+  
+  .filterSection {
+    margin-bottom: 16px;
+  }
+  
+  .searchInput,
+  .teamSelect {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    &:focus {
+      border-color: #2196f3; /* Highlight on focus */
+    }
+  }
+  
+  .employeeItems {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .employeeItem {
+    margin-bottom: 16px;
+    background-color: #fff;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .employeeName {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .employeeDesignation,
+  .employeeTeam {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .chartSection {
+    /* Additional styles for the chart section can be added here */
+  }
+  
