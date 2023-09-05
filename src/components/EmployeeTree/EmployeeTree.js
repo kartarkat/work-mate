@@ -12,12 +12,6 @@ const EmployeeTreeNode = ({ employee, onDrop, draggedEmployee, setDraggedEmploye
 
     const handleDragStart = (event) => {
         event.dataTransfer.setData("id", event.target.dataset.id );
-
-        // if(dragItem === null){
-
-        //     console.log('draggg', emp)
-        // }
-        // Set the employee object as the data being transferred
       };
 
     const handleDragOver = (e) => {
@@ -31,20 +25,12 @@ const EmployeeTreeNode = ({ employee, onDrop, draggedEmployee, setDraggedEmploye
         while (target) {
             const dataId = target.dataset.id;
             if (dataId && dataId.startsWith('node-')) {
-                // Extract the unique identifier
                 const draggedEmployeeId = event.dataTransfer.getData("id");
-                // const nodeId = dataId.replace('node-', '');
-                // console.log('dataId', dataId)
-                // console.log('Dropped on Node with ID:', nodeId);
                 onDrop(draggedEmployeeId, dataId );
-    
-                // Perform your drop logic for the specific node (nodeId)
                 break;
             }
             target = target.parentNode;
         }
-
-        // console.log('finally', target.dataset.id)
       };
 
     return (
@@ -54,7 +40,6 @@ const EmployeeTreeNode = ({ employee, onDrop, draggedEmployee, setDraggedEmploye
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             draggable={true}
-            // data-id={employee.id}
             data-id={`node-${employee.id}`}
         >
             <div className={styles.nodeContent} onClick={handleToggle}>

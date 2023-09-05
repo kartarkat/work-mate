@@ -4,7 +4,7 @@ import EmployeeTree from "./components/EmployeeTree/EmployeeTree";
 import { generateEmployeeTree } from "./utils/helpers";
 import styles from "./App.module.scss"; // Import your main SCSS styles
 import { useEffect, useState } from "react";
-import { fetchEmployees } from "./utils/api";
+import { fetchEmployees, updateEmployee } from "./utils/api";
 import Header from "./components/Header";
 import Loader from "./components/Loader/Loader";
 
@@ -46,19 +46,41 @@ export default function App() {
 			? filteredEmployees
 			: filteredEmployees.filter((employee) => employee.team === filterData.team);
 
-	const updateEmployeeOrder = (dragged, dropped) => {
+	const updateEmployeeOrder = async(dragged, dropped) => {
 		console.log(dragged, dropped)
 		// Do your API call to update the manager ID of the dragged employee here
+		// try {
+		// 	const data = await updateEmployee(parseInt(dragged),parseInt( dropped))
+		// 	setEmployees(data)
+		// 	setLoading(false)
+		// } catch {
+		// 	setLoading(false)
+		// }
 
 		// For now, update the local state
 		setEmployees((employees) => {
 			const draggedEmployee = employees.find((employee) => parseInt(employee.id) === parseInt(dragged));
+			const newManagerId = parseInt(dropped);
+		  
 			if (draggedEmployee) {
-				draggedEmployee.manager = parseInt(dropped);
-				return [...employees];
+			  // Check if the new manager is the same as the old manager
+			  if (draggedEmployee.manager === newManagerId) {
+				return [...employees]; // No change needed
+			  }
+		  
+			  // Check if the dragged employee is becoming its own manager
+			  if (draggedEmployee.id === newManagerId) {
+				return [...employees]; // No change needed
+			  } else {
+				draggedEmployee.manager = newManagerId;
+			  }
+		  
+			  return [...employees];
 			}
+		  
 			return employees;
-		});
+		  });
+		  
 	
 	};
 
