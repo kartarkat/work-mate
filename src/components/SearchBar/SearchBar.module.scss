@@ -44,4 +44,10 @@
         margin-left: 20px;
     }
 
+
+    @media (max-width: 768px) {
+        padding: 10px;
+        flex-direction: column;
+      }
+
 }

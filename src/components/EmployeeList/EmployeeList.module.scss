@@ -1,67 +1,57 @@
-.employeeListContainer {
-  min-width: 30%;
-    background-color: #f0f0f0; 
-    padding: 16px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
-    display: flex;
-    flex-direction: column;
-    max-width: max-content;
-    overflow: auto; 
-  }
-  
-  .filterSection {
-    margin-bottom: 16px;
-  }
-  
-  .searchInput,
-  .teamSelect {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.3s;
-    &:focus {
-      border-color: #2196f3; 
-    }
-  }
-  
-  .employeeItems {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
-    @media (max-width: 768px) {
-      flex-direction: row;
-    }
-  }
-  
-  .employeeItem {
-    margin-right: 16px; 
-    background-color: #fff;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    min-width: 300px; 
-  
-    @media (max-width: 768px) {
-      margin-right: 8px; 
-      min-width: max-content; 
-    }
-  }
-  
-  .employeeName {
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .employeeDesignation,
-  .employeeTeam {
-    font-size: 14px;
-    color: #666;
-  }
+/* EmployeeList.module.scss */
 
-  
+.employeeListContainer {
+  max-width: 100%; /* Set maximum width to screen width */
+  max-height: 100vh; /* Set maximum height to screen height */
+  overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
+  background-color: #f0f0f0;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    @media (max-width: 768px) {
+      width: 100%; /* Take the full width of the screen on mobile */
+    }
+}
+
+.employeeItems {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+
+  /* Media query for screens smaller than 768px (typical mobile devices) */
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-wrap: nowrap; /* Prevent items from wrapping to the next line */
+    overflow-x: auto; /* Enable horizontal scrolling for items on mobile */
+  }
+}
+
+.employeeItem {
+  background-color: #fff;
+  margin-right: 16px; /* Add spacing between items */
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+
+  /* Media query for screens smaller than 768px (typical mobile devices) */
+  @media (max-width: 768px) {
+    flex: 0 0 auto; /* Ensure items don't grow and maintain their width */
+    min-width: 200px; /* Set a minimum width for each item on mobile */
+    margin-right: 0; /* Remove margin on mobile to make them stack */
+  }
+}
+
+.employeeName {
+  font-weight: bold;
+}
+
+.employeeDesignation,
+.employeeTeam {
+  color: #666;
+  margin-top: 8px;
+}

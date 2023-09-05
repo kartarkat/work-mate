@@ -8,7 +8,7 @@ const EmployeeList = ({ employeeData }) => {
       <ul className={styles.employeeItems}>
         {employeeData.map((employee) => (
           <li key={employee.id} className={styles.employeeItem}>
-            <div className={styles.employeeName}>Name: {employee.name}</div>
+            <div className={styles.employeeName}>{employee.name}</div>
             <div className={styles.employeeDesignation}>Designation: {employee.designation}</div>
             <div className={styles.employeeTeam}>Team: {employee.team}</div>
           </li>

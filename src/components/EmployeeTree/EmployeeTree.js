@@ -2,23 +2,18 @@ import React, { useState } from "react";
 import styles from './EmployeeTree.module.scss';
 import defaultAvatar from '../../assets/defaultAvatar.png'
 
-const EmployeeTreeNode = ({ employee, onDrop }) => {
+const EmployeeTreeNode = ({ employee, onDrop, draggedEmployee, setDraggedEmployee }) => {
     const [isOpen, setIsOpen] = useState(true);
-
-    //   let currentDragItem ;
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleDragStart = (e) => {
+    const handleDragStart = (e, emp) => {
+        console.log(e, emp)
         // Set the employee object as the data being transferred
-
-        // if(currentDragItem){
         e.dataTransfer.setData("application/json", JSON.stringify(employee));
-        // }
-
-    };
+      };
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -28,13 +23,44 @@ const EmployeeTreeNode = ({ employee, onDrop }) => {
         e.preventDefault();
         // Get the dragged employee object from the data being transferred
         const draggedEmployee = JSON.parse(e.dataTransfer.getData("application/json"));
+        console.log('draggedEmployee', draggedEmployee)
         onDrop(draggedEmployee, employee);
-    };
+      };
+
+    // const handleDrop = (e) => {
+    //     e.preventDefault();
+
+    //     // Ensure not to drop an employee onto itself
+    //     if (draggedEmployee.id === employee.id) {
+    //         return;
+    //     }
+
+    //     // Ensure not to drop an employee onto an employee with the same manager
+    //     if (draggedEmployee.manager === employee.id) {
+    //         return;
+    //     }
+
+    //     const draggedEmployeeData = JSON.parse(e.dataTransfer.getData("application/json"));
+
+    //     console.log('draggedEmployeeData', draggedEmployeeData)
+
+
+    //     // Update the manager ID of the dragged employee
+    //     draggedEmployee.manager = employee.id;
+
+    //     console.log('draggedEmployee', draggedEmployee)
+
+    //     // Trigger the onDrop function to update the employee data
+    //     onDrop(draggedEmployee, employee);
+
+    //     // Clear the current dragged employee
+    //     setDraggedEmployee(null);
+    // };
 
     return (
         <div
             className={styles.node}
-            onDragStart={handleDragStart}
+            onDragStart={(e) => handleDragStart(e, employee)}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             draggable={true}
@@ -42,17 +68,21 @@ const EmployeeTreeNode = ({ employee, onDrop }) => {
             <div className={styles.nodeContent} onClick={handleToggle}>
                 <img className={styles.avatar} alt='avatar' src={employee?.url || defaultAvatar} />
                 <div>
-                <div className={styles.designation}>{employee.designation}</div>
-                <div>{employee.name}</div>
-                <div>Team: {employee.team}</div>
-            </div>
-
+                    <div className={styles.designation}>{employee.designation}</div>
+                    <div>{employee.name}</div>
+                    <div>Team: {employee.team}</div>
                 </div>
+            </div>
             {isOpen && employee.children && (
                 <div className={styles.children}>
                     {employee.children.map((child) => (
                         <React.Fragment key={child.id}>
-                            <EmployeeTreeNode employee={child} onDrop={onDrop} />
+                            <EmployeeTreeNode
+                                employee={child}
+                                onDrop={onDrop}
+                                draggedEmployee={draggedEmployee}
+                                setDraggedEmployee={setDraggedEmployee}
+                            />
                         </React.Fragment>
                     ))}
                 </div>
@@ -63,70 +93,47 @@ const EmployeeTreeNode = ({ employee, onDrop }) => {
 
 const EmployeeTree = ({ data }) => {
     const [employeeData, setEmployeeData] = useState(data);
+    const [draggedEmployee, setDraggedEmployee] = useState(null);
 
-    let draggedEmployee;
-
-    const handleDrop = (draEmp, targetEmployee) => {
-        console.log(draggedEmployee)
-        if (draggedEmployee === undefined) {
-            draggedEmployee = draEmp
-            console.log('first 1')
-        } else {
-            console.log('first 2')
-
-            return null;
-        }
-
-        console.log(draggedEmployee, targetEmployee)
-        // Ensure not to drop an employee onto itself
-        if (draggedEmployee.id === targetEmployee.id) {
-            return;
-        }
-
-        // Ensure not to drop an employee onto an employee with the same manager
-        if (draggedEmployee.manager === targetEmployee.manager) {
-            return;
-        }
-
-        // Update the employeeData state to reflect the changes
+    const handleDrop = (updatedEmployee) => {
+        // console.log('updatedEmployee', updatedEmployee)
+        // Create a new copy of the employeeData
         const updatedData = [...employeeData];
-
-        // Find the parent of the dragged employee
-        let parentOfDragged = null;
-
-        updatedData.forEach((emp) => {
-            if (emp.children) {
-                if (emp.children.some((child) => child.id === draggedEmployee.id)) {
-                    parentOfDragged = emp;
-                }
-            }
-        });
-
-        // Remove the dragged employee from its previous parent
-        const sourceIndex = parentOfDragged?.children.findIndex(
-            (child) => child.id === draggedEmployee.id
+    
+        // Find the parent of the updated employee
+        const parentOfUpdated = updatedData.find((emp) =>
+            emp.children.some((child) => child.id === updatedEmployee.id)
+        );
+    
+        // Remove the updated employee from its previous parent
+        const sourceIndex = parentOfUpdated?.children.findIndex(
+            (child) => child.id === updatedEmployee.id
         );
         if (sourceIndex !== -1) {
-            parentOfDragged?.children.splice(sourceIndex, 1);
+            parentOfUpdated?.children.splice(sourceIndex, 1);
         }
-
-        // Add the dragged employee to the target's children
-        if (!targetEmployee.children) {
-            targetEmployee.children = [];
+    
+        // Add the updated employee to the target's children
+        const targetIndex = updatedData.findIndex((emp) => emp.id === updatedEmployee.manager);
+        if (targetIndex !== -1) {
+            updatedData[targetIndex].children.push(updatedEmployee);
         }
-        targetEmployee.children.push(draggedEmployee);
-
-        // Update the manager field of the dragged employee
-        draggedEmployee.manager = targetEmployee.id;
-
-        // Update the employeeData state with the changes
+    
+        // Update the employeeData state with the new data
         setEmployeeData(updatedData);
     };
+    
 
     return (
         <div className={styles.employeeTree}>
             {employeeData.map((employee) => (
-                <EmployeeTreeNode key={employee.id} employee={employee} onDrop={handleDrop} />
+                <EmployeeTreeNode
+                    key={employee.id}
+                    employee={employee}
+                    onDrop={handleDrop}
+                    draggedEmployee={draggedEmployee}
+                    setDraggedEmployee={setDraggedEmployee}
+                />
             ))}
         </div>
     );
