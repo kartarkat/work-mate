@@ -46,46 +46,67 @@ export default function App() {
 			? filteredEmployees
 			: filteredEmployees.filter((employee) => employee.team === filterData.team);
 
-	const updateEmployeeOrder = async(dragged, dropped) => {
-		console.log(dragged, dropped)
-		// Do your API call to update the manager ID of the dragged employee here
-		// try {
-		// 	const data = await updateEmployee(parseInt(dragged),parseInt( dropped))
-		// 	setEmployees(data)
-		// 	setLoading(false)
-		// } catch {
-		// 	setLoading(false)
-		// }
-
-		// For now, update the local state
-		setEmployees((employees) => {
+	const updateEmployeeOrder = async (dragged, dropped) => {
+		setLoading(true)
+		//API call to update the manager ID of the dragged employee here
+		try {
 			const draggedEmployee = employees.find((employee) => parseInt(employee.id) === parseInt(dragged));
 			const newManagerId = parseInt(dropped);
-		  
 			if (draggedEmployee) {
-			  // Check if the new manager is the same as the old manager
-			  if (draggedEmployee.manager === newManagerId) {
-				return [...employees]; // No change needed
-			  }
-		  
-			  // Check if the dragged employee is becoming its own manager
-			  if (draggedEmployee.id === newManagerId) {
-				return [...employees]; // No change needed
-			  } else {
-				draggedEmployee.manager = newManagerId;
-			  }
-		  
-			  return [...employees];
+				if (draggedEmployee.manager === newManagerId) {
+					setLoading(false)
+					return;
+				}
+				if (draggedEmployee.id === newManagerId) {
+					setLoading(false)
+					return;
+				} else {
+					// Make the API call to update the manager
+					updateEmployee(parseInt(dragged), parseInt(dropped))
+						.then((data) => {
+							// Update the state with the new employee data
+							setEmployees(data);
+							setLoading(false);
+						})
+						.catch((error) => {
+							// Handle or log the error here
+							console.error('API call error:', error);
+							setLoading(false);
+						});
+				}
 			}
-		  
-			return employees;
-		  });
-		  
-	
+		} catch (error) {
+			// Handle or log the error here
+			console.error('Error:', error);
+			setLoading(false);
+		}
+
+		// For now, update the local state
+		// setEmployees((employees) => {
+		// 	const draggedEmployee = employees.find((employee) => parseInt(employee.id) === parseInt(dragged));
+		// 	const newManagerId = parseInt(dropped);
+
+		// 	if (draggedEmployee) {
+		// 	  // Check if the new manager is the same as the old manager
+		// 	  if (draggedEmployee.manager === newManagerId) {
+		// 		return [...employees]; // No change needed
+		// 	  }
+
+		// 	  // Check if the dragged employee is becoming its own manager
+		// 	  if (draggedEmployee.id === newManagerId) {
+		// 		return [...employees]; // No change needed
+		// 	  } else {
+		// 		draggedEmployee.manager = newManagerId;
+		// 	  }
+
+		// 	  return [...employees];
+		// 	}
+
+		// 	return employees;
+		//   });
 	};
 
 	const renderPage = () => {
-		// console.log('employees updated', generateEmployeeTree(employees, filterData.team))
 		return (
 			<div className={styles.container}>
 				<EmployeeList employeeData={teamFilteredEmployees} />
