@@ -17,14 +17,6 @@ function SearchBar({ setFilterData, employeeData }) {
       setSelectedTeam(e.target.value);
     };
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     console.log(searchText)
-    //     setSearchText("")
-    //     setSearchQuery(searchText)
-    // }
-
-    
     return (
         <div className={styles.filterSection}>
         <input
@@ -40,7 +32,6 @@ function SearchBar({ setFilterData, employeeData }) {
           className={styles.teamSelect}
         >
           <option value="All">All Teams</option>
-          {/* Dynamically generate team options based on your employee data */}
           {Array.from(
             new Set(employeeData?.map((employee) => employee.team))
           ).map((team) => (
@@ -50,19 +41,6 @@ function SearchBar({ setFilterData, employeeData }) {
           ))}
         </select>
       </div>
-        // <div className={styles.searchBar}>
-        //     <form onSubmit={handleSubmit}>
-        //         <input
-        //             type="text"
-        //             placeholder='Search recipes'
-        //             value={searchText}
-        //             onChange={e => setSearchText(e.target.value)}
-        //         />
-        //         <button type='submit'>Search</button>
-        //         <button className={styles.close}
-        //             onClick={() => setSearchQuery('')}>X</button>
-        //     </form>
-        // </div>
     )
 }
 

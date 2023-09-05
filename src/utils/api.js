@@ -15,8 +15,6 @@ export const fetchEmployees = async() => {
 
 export const updateEmployee = async (employeeId, newManagerId) => {
   const url = `${BASE_URL}${END_POINTS.update}`;
-
-  // Create an object with the data to be sent in the request body
   const payload = {
     employeeId,
     newManagerId,

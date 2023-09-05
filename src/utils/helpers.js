@@ -1,4 +1,4 @@
-export const generateEmployeeTree = (data, selectedTeam) => {
+export const generateEmployeeTree = (data) => {
   const employeesById = new Map();
 
   // Initialize the 'children' property for all employees
@@ -10,9 +10,8 @@ export const generateEmployeeTree = (data, selectedTeam) => {
   const rootEmployees = [];
 
   // Filter the data based on the selected team
-  const filteredData = selectedTeam === "All" ? data : data.filter((employee) => employee.team === selectedTeam);
 
-  filteredData.forEach((employee) => {
+  data.forEach((employee) => {
     if (employee.manager === null) {
       rootEmployees.push(employee);
     } else {

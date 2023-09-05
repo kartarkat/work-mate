@@ -2,7 +2,7 @@
 import EmployeeList from "./components/EmployeeList/EmployeeList";
 import EmployeeTree from "./components/EmployeeTree/EmployeeTree";
 import { generateEmployeeTree } from "./utils/helpers";
-import styles from "./App.module.scss"; // Import your main SCSS styles
+import styles from "./App.module.scss";
 import { useEffect, useState } from "react";
 import { fetchEmployees, updateEmployee } from "./utils/api";
 import Header from "./components/Header";

@@ -4,7 +4,6 @@ import defaultAvatar from '../../assets/defaultAvatar.png'
 
 const EmployeeTreeNode = ({ employee, onDrop, draggedEmployee, setDraggedEmployee }) => {
     const [isOpen, setIsOpen] = useState(true);
-    const [dragItem, setDragItem] = useState(null)
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -20,6 +19,7 @@ const EmployeeTreeNode = ({ employee, onDrop, draggedEmployee, setDraggedEmploye
 
     const handleDrop = (event) => {
         event.preventDefault();
+        event.stopPropagation();
        
         let target = event.target;
         while (target) {

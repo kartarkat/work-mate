@@ -13,6 +13,7 @@ const EmployeeList = ({ employeeData }) => {
             <div className={styles.employeeTeam}>Team: {employee.team}</div>
           </li>
         ))}
+        {employeeData?.length === 0 ? 'No employee found' : ''}
       </ul>
       <div className={styles.chartSection}>
       </div>
