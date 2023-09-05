@@ -1,27 +1,19 @@
-import { employeeData } from "../constants";
-
 // api url and endpoints
-const BASE_URL = 'https://api-recipe.vercel.app/'
+const BASE_URL = 'https://api-work-mate.vercel.app/'
 
 const END_POINTS = {
   employees: "employees",
-recipesId: "recipes/:id",
+  employeesId: "employees/:id",
 }
 
 // api specific functions
 export const fetchEmployees = async() => {
-    // const url = `${BASE_URL}${END_POINTS.recipes}`
-    // return await fetchData(url)
-    // Simulate an asynchronous API call with a delay
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(employeeData);
-    }, 100);
-  });
+    const url = `${BASE_URL}${END_POINTS.employees}`
+    return await fetchData(url)
 }
 
-export const fetchRecipesById = async(id) => {
-    const url = `${BASE_URL}${END_POINTS.recipesId}`.replace(':id', id)
+export const fetchEmployeesById = async(id) => {
+    const url = `${BASE_URL}${END_POINTS.employeesId}`.replace(':id', id)
     return await fetchData(url)
 }
 
