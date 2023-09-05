@@ -16,8 +16,11 @@ export const generateEmployeeTree = (data, selectedTeam) => {
     if (employee.manager === null) {
       rootEmployees.push(employee);
     } else {
+      // Ensure that the manager's 'children' property is initialized
       const manager = employeesById.get(employee.manager);
-      manager.children.push(employee);
+      if (manager) {
+        manager.children.push(employee);
+      }
     }
   });
 

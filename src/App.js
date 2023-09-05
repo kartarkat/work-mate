@@ -1,7 +1,6 @@
 
 import EmployeeList from "./components/EmployeeList/EmployeeList";
 import EmployeeTree from "./components/EmployeeTree/EmployeeTree";
-import { employeeData } from "./constants";
 import { generateEmployeeTree } from "./utils/helpers";
 import styles from "./App.module.scss"; // Import your main SCSS styles
 import { useEffect, useState } from "react";
@@ -10,9 +9,8 @@ import Header from "./components/Header";
 import Loader from "./components/Loader/Loader";
 
 
-
 export default function App() {
-	const [employees, setEmployees] = useState(employeeData)
+	const [employees, setEmployees] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [filterData, setFilterData] = useState({ query: "", team: "All" })
 
@@ -30,7 +28,7 @@ export default function App() {
 	}, [])
 
 	// Filter by search query (name, designation, or team)
-	const filteredEmployees = employeeData.filter((employee) => {
+	const filteredEmployees = employees.filter((employee) => {
 		const searchString = filterData.query.toLowerCase();
 		const employeeName = employee.name.toLowerCase();
 		const employeeDesignation = employee.designation.toLowerCase();
@@ -48,11 +46,31 @@ export default function App() {
 			? filteredEmployees
 			: filteredEmployees.filter((employee) => employee.team === filterData.team);
 
+	const updateEmployeeOrder = (dragged, dropped) => {
+		console.log(dragged, dropped)
+		// Do your API call to update the manager ID of the dragged employee here
+
+		// For now, update the local state
+		setEmployees((employees) => {
+			const draggedEmployee = employees.find((employee) => parseInt(employee.id) === parseInt(dragged));
+			if (draggedEmployee) {
+				draggedEmployee.manager = parseInt(dropped);
+				return [...employees];
+			}
+			return employees;
+		});
+	
+	};
+
 	const renderPage = () => {
+		// console.log('employees updated', generateEmployeeTree(employees, filterData.team))
 		return (
 			<div className={styles.container}>
 				<EmployeeList employeeData={teamFilteredEmployees} />
-				<EmployeeTree data={generateEmployeeTree(employees, filterData.team)} />
+				<EmployeeTree
+					data={generateEmployeeTree(employees, filterData.team)}
+					updateEmployeeOrder={updateEmployeeOrder}
+				/>
 			</div>
 		)
 	}
