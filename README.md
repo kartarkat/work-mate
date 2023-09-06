@@ -6,7 +6,7 @@
 - `npm start`
 
 ### Preview
-![](./src/Assets/work-mate-preview.gif)
+![](./src/Assets/work-mate-preview.mp4)
 
 ### Actions
 - **Search** -> Search employee using search bar.
